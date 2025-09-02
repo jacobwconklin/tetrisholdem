@@ -36,18 +36,19 @@ const ScoreModal = ({ isOpen, onClose, onSubmit }: ScoreModalProps) => {
       left: 0,
       right: 0,
       bottom: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      backgroundColor: 'rgba(0, 0, 0, 0.7)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       zIndex: 1000,
     }}>
       <div style={{
-        backgroundColor: 'var(--background, white)',
-        color: 'var(--foreground, black)',
+        backgroundColor: 'var(--background-solid, #1a1a2e)',
+        color: 'var(--foreground, white)',
         padding: '2rem',
         borderRadius: '12px',
-        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.15)',
+        boxShadow: '0 10px 25px rgba(0, 245, 255, 0.2), 0 0 50px rgba(255, 20, 147, 0.1)',
+        border: '2px solid var(--tetris-cyan, #00f5ff)',
         minWidth: '320px',
         maxWidth: '400px',
         width: '90%',
@@ -57,45 +58,73 @@ const ScoreModal = ({ isOpen, onClose, onSubmit }: ScoreModalProps) => {
           fontSize: '1.5rem',
           fontWeight: 'bold',
           textAlign: 'center',
+          color: 'var(--casino-gold, #ffd700)',
+          textShadow: '0 0 10px rgba(255, 215, 0, 0.5)',
+          fontFamily: "'Courier New', 'Monaco', 'Menlo', monospace",
         }}>
-          Add Score
+          🎲 Add Score 🎲
         </h3>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} >
           <div style={{ marginBottom: '1.5rem' }}>
             <label style={{
               display: 'block',
-              marginBottom: '0.5rem',
+              marginBottom: '0.75rem',
               fontWeight: '500',
               fontSize: '1rem',
+              color: 'var(--tetris-cyan, #00f5ff)',
+              textAlign: 'center',
             }}>
               Score Type:
             </label>
-            <select
-              value={scoreType}
-              onChange={(e) => setScoreType(e.target.value as 'Flush' | 'Straight' | 'Full House')}
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                border: '1px solid var(--gray-alpha-200, #ccc)',
-                borderRadius: '6px',
-                fontSize: '1rem',
-                backgroundColor: 'var(--background, white)',
-                color: 'var(--foreground, black)',
-              }}
-            >
-              <option value="Flush">Flush</option>
-              <option value="Straight">Straight</option>
-              <option value="Full House">Full House</option>
-            </select>
+            <div style={{
+              display: 'flex',
+              gap: '0.5rem',
+              justifyContent: 'center',
+              marginBottom: '1rem',
+            }}>
+              {(['Flush', 'Straight', 'Full House'] as const).map((type) => (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => setScoreType(type)}
+                  style={{
+                    padding: '0.5rem 0.75rem',
+                    border: '2px solid var(--tetris-blue, #0099ff)',
+                    borderRadius: '6px',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    fontFamily: "'Courier New', 'Monaco', 'Menlo', monospace",
+                    backgroundColor: scoreType === type 
+                      ? 'var(--tetris-blue, #0099ff)' 
+                      : 'rgba(0, 153, 255, 0.1)',
+                    color: scoreType === type 
+                      ? '#000000' 
+                      : 'var(--tetris-blue, #0099ff)',
+                    boxShadow: scoreType === type 
+                      ? '0 0 20px rgba(0, 153, 255, 0.6), 0 0 40px rgba(0, 153, 255, 0.3)' 
+                      : 'none',
+                    textShadow: scoreType === type 
+                      ? '0 0 5px rgba(0, 153, 255, 0.8)' 
+                      : 'none',
+                    transform: scoreType === type ? 'scale(1.05)' : 'scale(1)',
+                  }}
+                >
+                  {type}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div style={{ marginBottom: '2rem' }}>
+          <div style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <label style={{
               display: 'block',
               marginBottom: '0.5rem',
               fontWeight: '500',
               fontSize: '1rem',
+              color: 'var(--tetris-cyan, #00f5ff)',
             }}>
               Number of Cards (5-19):
             </label>
@@ -106,13 +135,14 @@ const ScoreModal = ({ isOpen, onClose, onSubmit }: ScoreModalProps) => {
               value={cardCount}
               onChange={(e) => setCardCount(parseInt(e.target.value) || 5)}
               style={{
-                width: '100%',
+                width: '50%',
                 padding: '0.75rem',
-                border: '1px solid var(--gray-alpha-200, #ccc)',
+                border: '2px solid var(--tetris-orange, #ff9500)',
                 borderRadius: '6px',
                 fontSize: '1rem',
-                backgroundColor: 'var(--background, white)',
-                color: 'var(--foreground, black)',
+                backgroundColor: 'rgba(255, 149, 0, 0.1)',
+                color: 'var(--foreground, white)',
+                fontFamily: "'Courier New', 'Monaco', 'Menlo', monospace",
               }}
             />
           </div>
@@ -120,20 +150,23 @@ const ScoreModal = ({ isOpen, onClose, onSubmit }: ScoreModalProps) => {
           <div style={{
             display: 'flex',
             gap: '1rem',
-            justifyContent: 'flex-end',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
             <button
               type="button"
               onClick={onClose}
               style={{
                 padding: '0.75rem 1.5rem',
-                border: '1px solid var(--gray-alpha-200, #ccc)',
+                border: '2px solid var(--tetris-red, #ff3030)',
                 borderRadius: '6px',
-                backgroundColor: 'transparent',
-                color: 'var(--foreground, black)',
+                backgroundColor: 'rgba(255, 48, 48, 0.1)',
+                color: 'var(--tetris-red, #ff3030)',
                 cursor: 'pointer',
                 fontSize: '1rem',
                 fontWeight: '500',
+                fontFamily: "'Courier New', 'Monaco', 'Menlo', monospace",
+                transition: 'all 0.2s ease',
               }}
             >
               Cancel
@@ -144,11 +177,15 @@ const ScoreModal = ({ isOpen, onClose, onSubmit }: ScoreModalProps) => {
                 padding: '0.75rem 1.5rem',
                 border: 'none',
                 borderRadius: '6px',
-                backgroundColor: 'var(--foreground, black)',
-                color: 'var(--background, white)',
+                backgroundColor: 'var(--tetris-green, #00ff00)',
+                color: '#000000',
                 cursor: 'pointer',
                 fontSize: '1rem',
                 fontWeight: '500',
+                fontFamily: "'Courier New', 'Monaco', 'Menlo', monospace",
+                textShadow: '0 0 5px rgba(0, 255, 0, 0.5)',
+                boxShadow: '0 0 15px rgba(0, 255, 0, 0.3)',
+                transition: 'all 0.2s ease',
               }}
             >
               Add Score
@@ -174,64 +211,76 @@ const PlayerScoreCard = ({ playerName, totalScore, onScoreUpdate }: PlayerScoreC
   return (
     <>
       <div style={{
-        backgroundColor: 'var(--background, white)',
-        color: 'var(--foreground, black)',
+        background: 'linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 50%, rgba(15, 52, 96, 0.9) 100%)',
+        color: 'var(--foreground, white)',
         borderRadius: '16px',
         padding: '1.5rem',
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-        border: '1px solid var(--gray-alpha-200, #e5e5e5)',
+        boxShadow: '0 8px 32px rgba(0, 245, 255, 0.2), 0 0 50px rgba(255, 20, 147, 0.1)',
+        border: '2px solid var(--tetris-cyan, #00f5ff)',
         minWidth: '280px',
         maxWidth: '320px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '1rem',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+        gap: '0.5rem',
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+        position: 'relative',
+        overflow: 'hidden',
       }}
       onMouseEnter={(e) => {
         const target = e.currentTarget as HTMLElement;
-        target.style.transform = 'translateY(-2px)';
-        target.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+        target.style.transform = 'translateY(-4px) scale(1.02)';
+        target.style.boxShadow = '0 12px 40px rgba(0, 245, 255, 0.3), 0 0 80px rgba(255, 20, 147, 0.2)';
+        target.style.borderColor = 'var(--neon-pink, #ff1493)';
       }}
       onMouseLeave={(e) => {
         const target = e.currentTarget as HTMLElement;
-        target.style.transform = 'translateY(0)';
-        target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+        target.style.transform = 'translateY(0) scale(1)';
+        target.style.boxShadow = '0 8px 32px rgba(0, 245, 255, 0.2), 0 0 50px rgba(255, 20, 147, 0.1)';
+        target.style.borderColor = 'var(--tetris-cyan, #00f5ff)';
       }}
       >
         <div style={{
           textAlign: 'center',
-          borderBottom: '1px solid var(--gray-alpha-200, #e5e5e5)',
+          borderBottom: '2px solid var(--tetris-purple, #bf00ff)',
           paddingBottom: '1rem',
+          position: 'relative',
         }}>
           <h3 style={{
             margin: 0,
-            fontSize: '1.25rem',
+            fontSize: '1.75rem',
             fontWeight: 'bold',
-            color: 'var(--foreground, black)',
+            color: 'var(--casino-gold, #ffd700)',
+            textShadow: '0 0 10px rgba(255, 215, 0, 0.5)',
+            fontFamily: "'Courier New', 'Monaco', 'Menlo', monospace",
           }}>
-            {playerName}
+                {playerName}
           </h3>
         </div>
 
         <div style={{
           textAlign: 'center',
           padding: '1rem 0',
+          position: 'relative',
         }}>
           <div style={{
             fontSize: '0.875rem',
-            color: 'var(--gray-rgb, #666)',
+            color: 'var(--tetris-cyan, #00f5ff)',
             marginBottom: '0.5rem',
             textTransform: 'uppercase',
             letterSpacing: '0.05em',
             fontWeight: '500',
+            textShadow: '0 0 5px rgba(0, 245, 255, 0.5)',
+            fontFamily: "'Courier New', 'Monaco', 'Menlo', monospace",
           }}>
-            Total Score
+            💰 Total Score 💰
           </div>
           <div style={{
             fontSize: '2.5rem',
             fontWeight: 'bold',
-            color: 'var(--foreground, black)',
+            color: 'var(--neon-green, #39ff14)',
             lineHeight: 1,
+            textShadow: '0 0 20px rgba(57, 255, 20, 0.6), 0 0 40px rgba(57, 255, 20, 0.3)',
+            fontFamily: "'Courier New', 'Monaco', 'Menlo', monospace",
           }}>
             {totalScore.toLocaleString()}
           </div>
@@ -243,24 +292,33 @@ const PlayerScoreCard = ({ playerName, totalScore, onScoreUpdate }: PlayerScoreC
             padding: '0.75rem 1.5rem',
             border: 'none',
             borderRadius: '8px',
-            backgroundColor: 'var(--foreground, black)',
-            color: 'var(--background, white)',
+            background: 'linear-gradient(45deg, var(--tetris-orange, #ff9500), var(--tetris-yellow, #ffff00))',
+            color: '#000000',
             cursor: 'pointer',
             fontSize: '1rem',
-            fontWeight: '500',
-            transition: 'background-color 0.2s ease',
+            fontWeight: '600',
+            transition: 'all 0.3s ease',
             width: '100%',
+            fontFamily: "'Courier New', 'Monaco', 'Menlo', monospace",
+            textShadow: '0 0 5px rgba(255, 149, 0, 0.7)',
+            boxShadow: '0 4px 15px rgba(255, 149, 0, 0.3), 0 0 25px rgba(255, 255, 0, 0.2)',
           }}
           onMouseEnter={(e) => {
             const target = e.currentTarget as HTMLElement;
-            target.style.backgroundColor = 'var(--button-primary-hover, #383838)';
+            target.style.background = 'linear-gradient(45deg, var(--tetris-red, #ff3030), var(--neon-pink, #ff1493))';
+            target.style.color = '#ffffff';
+            target.style.transform = 'scale(1.05)';
+            target.style.boxShadow = '0 6px 20px rgba(255, 48, 48, 0.4), 0 0 35px rgba(255, 20, 147, 0.3)';
           }}
           onMouseLeave={(e) => {
             const target = e.currentTarget as HTMLElement;
-            target.style.backgroundColor = 'var(--foreground, black)';
+            target.style.background = 'linear-gradient(45deg, var(--tetris-orange, #ff9500), var(--tetris-yellow, #ffff00))';
+            target.style.color = '#000000';
+            target.style.transform = 'scale(1)';
+            target.style.boxShadow = '0 4px 15px rgba(255, 149, 0, 0.3), 0 0 25px rgba(255, 255, 0, 0.2)';
           }}
         >
-          + Add Score
+          🎯 Add Score 🎯
         </button>
       </div>
 

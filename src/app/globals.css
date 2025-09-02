@@ -1,12 +1,25 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  --background-solid: #1a1a2e;
+  --foreground: #ffffff;
+  --tetris-cyan: #00f5ff;
+  --tetris-blue: #0099ff;
+  --tetris-orange: #ff9500;
+  --tetris-yellow: #ffff00;
+  --tetris-green: #00ff00;
+  --tetris-purple: #bf00ff;
+  --tetris-red: #ff3030;
+  --casino-gold: #ffd700;
+  --casino-silver: #c0c0c0;
+  --neon-pink: #ff1493;
+  --neon-green: #39ff14;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    --background-solid: #1a1a2e;
+    --foreground: #ffffff;
   }
 }
 
@@ -19,9 +32,10 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
 
 * {

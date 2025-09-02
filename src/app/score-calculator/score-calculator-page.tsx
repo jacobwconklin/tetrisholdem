@@ -52,7 +52,7 @@ const AddPlayerModal = ({ isOpen, onClose, onSubmit }: AddPlayerModalProps) => {
             }}
         >
             <div style={{
-                backgroundColor: 'var(--background, white)',
+                backgroundColor: 'var(--background-solid, white)',
                 color: 'var(--foreground, black)',
                 padding: '2rem',
                 borderRadius: '12px',
@@ -127,7 +127,7 @@ const AddPlayerModal = ({ isOpen, onClose, onSubmit }: AddPlayerModalProps) => {
                                 border: 'none',
                                 borderRadius: '6px',
                                 backgroundColor: playerName.trim() ? 'var(--foreground, black)' : '#ccc',
-                                color: 'var(--background, white)',
+                                color: '#060960ff',
                                 cursor: playerName.trim() ? 'pointer' : 'not-allowed',
                                 fontSize: '1rem',
                                 fontWeight: '500',
@@ -166,7 +166,7 @@ export default function ScoreCalculatorPage() {
           textAlign: 'center',
           color: 'var(--foreground)'
         }}>
-          🎮 Tetris Hold&apos;em Scorer
+          ♠️ Tetris Hold&apos;em Scorer ♣️
         </h1>
         
         <p style={{ 
@@ -211,7 +211,7 @@ export default function ScoreCalculatorPage() {
                 padding: '1rem 2rem',
                 border: 'none',
                 borderRadius: '12px',
-                backgroundColor: 'var(--foreground, black)',
+                backgroundColor: 'var(--background-solid, black)',
                 color: 'var(--background, white)',
                 cursor: 'pointer',
                 fontSize: '1.1rem',
@@ -233,7 +233,7 @@ export default function ScoreCalculatorPage() {
             }}
             onMouseLeave={(e) => {
                 const target = e.currentTarget as HTMLElement;
-                target.style.backgroundColor = 'var(--foreground, black)';
+                target.style.backgroundColor = 'var(--background-solid, black)';
                 target.style.transform = 'translateY(0)';
                 target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
             }}
