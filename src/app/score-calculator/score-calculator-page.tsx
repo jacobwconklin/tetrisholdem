@@ -191,9 +191,12 @@ export default function ScoreCalculatorPage() {
                             if (i === index) {
                                 let newScore = 0
                                 if (scoreType == "Flush") {
-                                    newScore = (cardCount - 4) * 10
+                                    newScore = (cardCount - 3) * 10 // = 20 + (cardCount - 5) * 10
+                                } else if (scoreType == "Straight") {
+                                    newScore = (cardCount - 3) * 15 // = 30 + (cardCount - 5) * 15
                                 } else {
-                                    newScore = (cardCount - 3) * 15
+                                    // Full house
+                                    newScore = 30 + ((cardCount - 5) * 20);
                                 }
                                 return { ...p, totalScore: p.totalScore + newScore };
                             }

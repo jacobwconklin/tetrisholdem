@@ -29,6 +29,8 @@ const ScoreModal = ({ isOpen, onClose, onSubmit }: ScoreModalProps) => {
 
   if (!isOpen) return null;
 
+  console.log("Cardcount is: ", cardCount);
+
   return (
     <div style={{
       position: 'fixed',
@@ -126,14 +128,13 @@ const ScoreModal = ({ isOpen, onClose, onSubmit }: ScoreModalProps) => {
               fontSize: '1rem',
               color: 'var(--tetris-cyan, #00f5ff)',
             }}>
-              Number of Cards (5-19):
+              Number of Cards Cleared:
             </label>
             <input
               type="number"
-              min="5"
-              max="19"
+              max="16"
               value={cardCount}
-              onChange={(e) => setCardCount(parseInt(e.target.value) || 5)}
+              onChange={(e) => setCardCount(parseInt(e.target.value))}
               style={{
                 width: '50%',
                 padding: '0.75rem',
@@ -177,8 +178,8 @@ const ScoreModal = ({ isOpen, onClose, onSubmit }: ScoreModalProps) => {
                 padding: '0.75rem 1.5rem',
                 border: 'none',
                 borderRadius: '6px',
-                backgroundColor: 'var(--tetris-green, #00ff00)',
-                color: '#000000',
+                backgroundColor: !cardCount  || cardCount < 5 || cardCount > 16 ? 'gray' : 'var(--tetris-green, #00ff00)',
+                color: !cardCount  || cardCount < 5 || cardCount > 16 ? 'white' : '#000000',
                 cursor: 'pointer',
                 fontSize: '1rem',
                 fontWeight: '500',
@@ -187,6 +188,7 @@ const ScoreModal = ({ isOpen, onClose, onSubmit }: ScoreModalProps) => {
                 boxShadow: '0 0 15px rgba(0, 255, 0, 0.3)',
                 transition: 'all 0.2s ease',
               }}
+              disabled={!cardCount  || cardCount < 5 || cardCount > 16}
             >
               Add Score
             </button>
